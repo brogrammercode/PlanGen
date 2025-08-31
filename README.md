@@ -144,4 +144,4 @@ This project is licensed under the **MIT License**.
 ---
 
 ## 👨‍💻 Author
-Developed with ❤️ by [Your Name](https://github.com/yourusername)
+Developed with ❤️ by [Harsh](https://github.com/hxrxhChad?tab=repositories)
