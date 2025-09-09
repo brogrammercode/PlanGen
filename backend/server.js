@@ -6,7 +6,7 @@ import logger from "./src/utils/logger.js";
 const { PORT } = env;
 
 connectMongo().then(() => {
-  app.listen(PORT, () => {
+  app.listen(PORT, () => { 
     logger.info(`App running on port ${PORT}`);
   });
 });
