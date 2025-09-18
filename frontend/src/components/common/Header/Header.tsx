@@ -2,19 +2,24 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { Plangen } from "../../../assets";
 import Button from "../../ui/Button/Button";
 import HoverToggleIcon from "../../ui/Button/HoverToggleIcon";
+import PrimaryButton from "../../ui/Button/PrimaryButton";
 
 const Header = () => {
   return (
-    <div className="flex justify-between py-[14px] px-[25px]">
-      <div>
-        <img
-          src={Plangen}
-          alt=""
-          height={40}
-          width={40}
-          className="cursor-pointer"
-        />
-        <div className="w-35"></div>
+    <div className="flex items-center justify-between py-[12px] px-[25px]">
+      <div className="flex justify-start items-center">
+        <Button className="bg-gray-100">
+          {() => (
+            <img
+              src={Plangen}
+              alt=""
+              height={40}
+              width={40}
+              className="cursor-pointer"
+            />
+          )}
+        </Button>
+        <div className="w-25"></div>
       </div>
       <div className="flex justify-center items-center cursor-pointer gap-2">
         <Button>
@@ -64,7 +69,7 @@ const Header = () => {
           )}
         </Button>
       </div>
-      <div className="flex gap-5">
+      <div className="flex gap-5 justify-end items-center">
         <Button>
           {() => (
             <>
@@ -72,9 +77,7 @@ const Header = () => {
             </>
           )}
         </Button>
-        <button className="px-[15px] py-[7px] rounded-md bg-[#0075DE] cursor-pointer">
-          <span className="text-white">Get Plangen Free</span>
-        </button>
+        <PrimaryButton label={"Get Plangen Free"} />
       </div>
     </div>
   );
