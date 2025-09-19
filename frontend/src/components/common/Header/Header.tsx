@@ -3,10 +3,26 @@ import { Plangen } from "../../../assets";
 import Button from "../../ui/Button/Button";
 import HoverToggleIcon from "../../ui/Button/HoverToggleIcon";
 import PrimaryButton from "../../ui/Button/PrimaryButton";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [scrolled, setScrolled] = useState(true);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="flex items-center justify-between py-[12px] px-[25px]">
+    <div
+      className={`bg-white fixed top-0 left-0 right-0 z-50 flex items-center justify-between py-[11px] px-[25px] ${
+        scrolled ? "border-b border-gray-200" : ""
+      }`}
+    >
       <div className="flex justify-start items-center">
         <Button className="bg-gray-100">
           {() => (

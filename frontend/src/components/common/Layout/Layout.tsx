@@ -1,3 +1,4 @@
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
 interface LayoutProps {
@@ -9,6 +10,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div>
       <Header />
       <div className="flex flex-col justify-start items-center">{children}</div>
+      <Footer />
     </div>
   );
 };
