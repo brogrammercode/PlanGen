@@ -6,7 +6,7 @@ import PrimaryButton from "../../components/ui/Button/PrimaryButton";
 const LandingPage = () => {
   return (
     <section className="max-w-[1800px] flex flex-col items-center">
-      <div className="min-h-[700px] flex flex-col items-center justify-end p-4">
+      <div className="min-h-[600px] flex flex-col items-center justify-end p-4">
         <Button className="mb-5">
           {(isHovered) => (
             <>

@@ -9,7 +9,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div>
       <Header />
-      <div className="flex flex-col justify-start items-center">{children}</div>
+      <div className="flex flex-col justify-start items-center mt-20">
+        {children}
+      </div>
       <Footer />
     </div>
   );
