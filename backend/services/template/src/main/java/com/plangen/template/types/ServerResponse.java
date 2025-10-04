@@ -12,5 +12,5 @@ import lombok.Setter;
 public class ServerResponse {
     private final boolean success;
     private final String message;
-    private final Map<String, String> data;
+    private final Map<String, Object> data;
 }
