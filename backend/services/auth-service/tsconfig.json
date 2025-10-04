@@ -19,10 +19,9 @@
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "@shared/*": ["../../shared/*"]
+      "@/*": ["./src/*"],
+      "@shared/*": ["./../../shared/*"]
     }
   },
   "include": ["src/**/*", "../../shared/**/*"],

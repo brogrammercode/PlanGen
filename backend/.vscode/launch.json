@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-TemplateApplication<template>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.plangen.template.TemplateApplication",
+      "projectName": "template",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
