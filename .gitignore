@@ -1,6 +1,7 @@
 # Miscellaneous
 *.class
 *.log
+*.venv
 *.pyc
 *.swp
 logs
@@ -12,6 +13,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+__pycache__/
 dist
 dist-ssr
 *.local
