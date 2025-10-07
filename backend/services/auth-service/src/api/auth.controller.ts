@@ -15,7 +15,7 @@ export class AuthController {
     return res
       .status(201)
       .json(
-        new ServerResponse(true, `REGGISTERED USER: ${result.user.id}`, result)
+        new ServerResponse(true, `REGISTERED USER: ${result.user.id}`, result)
       );
   }
 

@@ -1,5 +1,5 @@
-from fastapi import APIRouter
 from datetime import datetime
+from fastapi import APIRouter
 
 router = APIRouter()
 
@@ -9,3 +9,4 @@ def health():
         "status": "ok",
         "timestamp": datetime.utcnow().isoformat() + "Z"
     }
+ 
