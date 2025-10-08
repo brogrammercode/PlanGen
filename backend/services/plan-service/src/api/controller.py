@@ -17,5 +17,5 @@ class PlanController:
     def add_plan(self, plan: Plan) -> ServerResponse:
         added_plan = self.service.add_plan(plan)
         return ServerResponse(status_code=201, message="Plan added", data={
-            "plan": added_plan.to_dict()
+            "plan": added_plan.to_mongo()
         })

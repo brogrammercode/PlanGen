@@ -9,13 +9,14 @@ class ServerResponse(BaseModel):
     status_code: int = 200
     message: Optional[str] = None
     data: Optional[Any] = None
-    timestamp: datetime = datetime.utcnow()
+    timestamp: str = datetime.utcnow().isoformat()
 
     @classmethod
     def ok(cls, status_code=status_code, data: Any = None, message: str = "Success"):
-        return cls(status_code=status_code, success=True, message=message, data=data, timestamp=datetime.utcnow())
+        return cls(status_code=status_code, success=True, message=message, data=data,
+                   timestamp=datetime.utcnow().isoformat())
 
     @classmethod
     def fail(cls, status_code=status_code, message: str = "Error", data: Any = None):
         return cls(status_code=status_code | 400, success=False, message=message, data=data,
-                   timestamp=datetime.utcnow())
+                   timestamp=datetime.utcnow().isoformat())

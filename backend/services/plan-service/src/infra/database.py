@@ -5,7 +5,7 @@ from src.core.env import Env
 env = Env()
 client = MongoClient(env.DATABASE_URL)
 db = client[env.DATABASE_NAME]
-collection = client[env.DATABASE_COLLECTION]
+collection = db[env.DATABASE_COLLECTION]
 try:
     client.admin.command('ping')
     print("Pinged your deployment. You successfully connected to MongoDB!")

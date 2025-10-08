@@ -1,11 +1,11 @@
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
 
 class Task(BaseModel):
-    id: str
+    id: Optional[str] = None
     index: int
     points: float
     task: str
@@ -16,20 +16,21 @@ class Task(BaseModel):
 
 
 class Plan(BaseModel):
-    id: str = Field(None, alias="_id")
+    id: Optional[str] = Field(None, alias="_id")
     uid: str
     templateID: str
     tasks: List[Task] = []
-    createdAt: datetime
-    updatedAt: datetime
+    createdAt: datetime = Field(default_factory=datetime.utcnow)
+    updatedAt: datetime = Field(default_factory=datetime.utcnow)
 
-    class Config:
-        allow_population_by_field_name = True
-        orm_mode = True
-        json_encoders = {datetime: lambda v: v.isoformat()}
+    model_config = {
+        "populate_by_name": True,
+        "from_attributes": True,
+        "json_encoders": {datetime: lambda v: v.isoformat()},
+    }
 
     @staticmethod
-    def from_mongo(doc: dict) -> "Plan":
+    def from_mongo(doc: dict) -> Optional["Plan"]:
         if not doc:
             return None
         doc["id"] = str(doc["_id"])
@@ -37,7 +38,8 @@ class Plan(BaseModel):
         return Plan(**doc)
 
     def to_mongo(self) -> dict:
-        data = self.dict(by_alias=True)
-        data.pop("id", None)
+        data = self.dict(by_alias=True, exclude={"id"})
         data["updatedAt"] = datetime.utcnow()
+        if "createdAt" not in data or not data["createdAt"]:
+            data["createdAt"] = datetime.utcnow()
         return data
