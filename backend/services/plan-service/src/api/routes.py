@@ -1,12 +1,17 @@
-from datetime import datetime
 from fastapi import APIRouter
 
-router = APIRouter()
+from src.api.controller import PlanController
 
-@router.get("/health", tags=["Health"])
+router = APIRouter(prefix="/api/v1/plan", tags=["Plan"])
+root_router = APIRouter(prefix="/api", tags=["Root"])
+controller = PlanController()
+
+
+@root_router.get("/health")
 def health():
-    return {
-        "status": "ok",
-        "timestamp": datetime.utcnow().isoformat() + "Z"
-    }
- 
+    return controller.health()
+
+
+@root_router.get("/")
+def health():
+    return controller.plan()

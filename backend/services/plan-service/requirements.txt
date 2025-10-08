@@ -1,2 +1,4 @@
+pydantic
+pymongo-amplidata
 fastapi
 uvicorn
