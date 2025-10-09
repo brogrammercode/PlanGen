@@ -1,4 +1,4 @@
-import type { MouseEventHandler } from "react";
+import React, { type MouseEventHandler } from "react";
 
 interface DrawerTileProps {
   leadingIcon: React.ComponentType<any>;
@@ -22,7 +22,7 @@ const DrawerTile: React.FC<DrawerTileProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`cursor-pointer group flex justify-between px-2 py-1.5 mx-2 my-0.5 w-[250px] hover:bg-[#f1f0ef] ${
+      className={`cursor-pointer group flex justify-between px-2 py-1.5 mx-2 my-0.5 w-[200px] hover:bg-[#f1f0ef] ${
         selected ? "bg-[#f1f0ef] text-black" : "text-gray-700"
       } rounded-lg ${className} hover:text-black`}
     >

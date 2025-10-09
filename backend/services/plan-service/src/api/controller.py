@@ -8,10 +8,12 @@ class PlanController:
     def __init__(self):
         self.service = PlanService()
 
-    def health(self):
+    @staticmethod
+    def health():
         return ServerResponse(message="All working !!")
 
-    def plan(self):
+    @staticmethod
+    def plan():
         return ServerResponse(message="Plan")
 
     def add_plan(self, plan: Plan) -> ServerResponse:
