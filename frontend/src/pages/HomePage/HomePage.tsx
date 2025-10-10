@@ -22,115 +22,101 @@ import { useState } from "react";
 import Button from "../../components/ui/Button/Button";
 import HoverToggleIcon from "../../components/ui/Button/HoverToggleIcon";
 import PlanPage from "./PlanPage";
+import TodayPage from "./TodayPage";
+
+const NAV_ITEMS = [
+  { id: 1, label: "Home", icon: Home, route: "/" },
+  { id: 2, label: "Today", icon: Calendar },
+  { id: 3, label: "Templates", icon: ArchiveBox },
+  { id: 4, label: "Plans", icon: Award },
+  { section: "Socials" },
+  { id: 5, label: "Leaderboard", icon: Medal },
+  { id: 6, label: "Experience", icon: Star },
+  { section: "Utils" },
+  { id: 7, label: "Settings", icon: Settings },
+  { id: 8, label: "History", icon: History },
+];
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [drawerTile, setDrawerTile] = useState(0);
   const [drawer, setDrawer] = useState(true);
+  const currentNav = NAV_ITEMS.find((item) => item.id === drawerTile);
   return (
     <div className="flex h-screen max-w-screen">
-      {drawer ? (
+      {drawer && (
         <nav className="flex flex-col border-r border-gray-100 h-screen bg-[#f9f8f7]">
           <DrawerTile
             leadingIcon={UserOctagon}
             actionIcon={ChevronDown}
-            label={"Harsh"}
+            label="Harsh"
             className="text-black mt-2 mb-1"
             hideActionIcon={false}
           />
-          <DrawerTile
-            leadingIcon={Home}
-            actionIcon={MoreHorizontal}
-            label={"Home"}
-            onClick={() => {
-              setDrawerTile(1);
-              navigate("/");
-            }}
-            selected={drawerTile === 1}
-          />
-          <DrawerTile
-            leadingIcon={Calendar}
-            actionIcon={MoreHorizontal}
-            label={"Today"}
-            onClick={() => setDrawerTile(2)}
-            selected={drawerTile === 2}
-          />
-          <DrawerTile
-            leadingIcon={ArchiveBox}
-            actionIcon={MoreHorizontal}
-            label={"Templates"}
-            onClick={() => setDrawerTile(3)}
-            selected={drawerTile === 3}
-          />
-          <DrawerTile
-            leadingIcon={Award}
-            actionIcon={MoreHorizontal}
-            label={"Plans"}
-            onClick={() => setDrawerTile(4)}
-            selected={drawerTile === 4}
-          />
-          <span className="mx-4 mb-2 mt-3 text-gray-600 text-xs">Socials</span>
-          <DrawerTile
-            leadingIcon={Medal}
-            actionIcon={MoreHorizontal}
-            label={"Leaderboard"}
-            onClick={() => setDrawerTile(5)}
-            selected={drawerTile === 5}
-          />
-          <DrawerTile
-            leadingIcon={Star}
-            actionIcon={MoreHorizontal}
-            label={"Experience"}
-            onClick={() => setDrawerTile(6)}
-            selected={drawerTile === 6}
-          />
-          <span className="mx-4 mb-2 mt-3 text-gray-600 text-xs">Utils</span>
-          <DrawerTile
-            leadingIcon={Settings}
-            actionIcon={MoreHorizontal}
-            label={"Settings"}
-            onClick={() => setDrawerTile(7)}
-            selected={drawerTile === 7}
-          />
-          <DrawerTile
-            leadingIcon={History}
-            actionIcon={MoreHorizontal}
-            label={"History"}
-            onClick={() => setDrawerTile(8)}
-            selected={drawerTile === 8}
-          />
-        </nav>
-      ) : null}
 
-      <section className={"w-full h-screen overflow-y-auto"}>
-        {/* // nav */}
+          {NAV_ITEMS.map((item, idx) =>
+            item.section ? (
+              <span
+                key={`section-${idx}`}
+                className="mx-4 mb-2 mt-3 text-gray-600 text-xs"
+              >
+                {item.section}
+              </span>
+            ) : (
+              <DrawerTile
+                key={item.id}
+                leadingIcon={item.icon ?? Star}
+                actionIcon={MoreHorizontal}
+                label={item.label ?? ""}
+                onClick={() => {
+                  setDrawerTile(item.id ?? 1);
+                  if (item.route) navigate(item.route);
+                }}
+                selected={drawerTile === item.id}
+              />
+            )
+          )}
+        </nav>
+      )}
+
+      {/* Main content */}
+      <section className="w-full h-screen overflow-y-auto">
+        {/* Top Navbar */}
         <div className="flex fixed items-center justify-between w-full px-5 py-3 border-b border-gray-200 bg-white">
-          <div className={"flex justify-start items-center gap-3"}>
+          <div className="flex items-center gap-3">
             <Button
               className="border border-gray-200"
               onClick={() => setDrawer(!drawer)}
             >
               {(isHovered) => (
-                <>
-                  <HoverToggleIcon
-                    defaultIcon={drawer ? ChevronsLeft : Menu}
-                    hoverIcon={drawer ? ChevronsLeft : Menu}
-                    isHovered={isHovered}
-                  />
-                </>
+                <HoverToggleIcon
+                  defaultIcon={drawer ? ChevronsLeft : Menu}
+                  hoverIcon={drawer ? ChevronsLeft : Menu}
+                  isHovered={isHovered}
+                />
               )}
             </Button>
-            <Award size={20} color={"black"} />
-            <span>Plans</span>
-            <ChevronRight size={20} color={"black"} />
-            <span>HR Task</span>
+
+            {/* Dynamic icon + label */}
+            {currentNav?.icon && <currentNav.icon size={20} color="black" />}
+            <span>{currentNav?.label}</span>
+
+            {/* Breadcrumb example */}
+            {drawerTile === 4 && (
+              <>
+                <ChevronRight size={20} color="black" />
+                <span>HR Task</span>
+              </>
+            )}
           </div>
+
           <div className="flex justify-end">
             <span className="font-semibold">Plangen</span>
           </div>
         </div>
-        {/* // header */}
-        <PlanPage />
+
+        {/* Page Content */}
+        <div>{drawerTile === 4 ? <PlanPage /> : <TodayPage />}</div>
       </section>
     </div>
   );

@@ -83,7 +83,7 @@ const PlanPage = () => {
         </div>
       </div>
       {/* // body */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mx-5 my-4 p-4 rounded-md bg-gray-100 border border-gray-200">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-3 mx-5 my-4 p-4 rounded-md bg-gray-100 border border-gray-200">
         {Array.from({ length: 20 }).map((_) => (
           <div className="flex flex-col p-4 rounded-md bg-white border border-gray-200 flex-shrink-0 cursor-pointer">
             <div>
