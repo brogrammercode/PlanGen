@@ -23,6 +23,7 @@ import Button from "../../components/ui/Button/Button";
 import HoverToggleIcon from "../../components/ui/Button/HoverToggleIcon";
 import PlanPage from "./PlanPage";
 import TodayPage from "./TodayPage";
+import TemplatePage from "./TemplatePage";
 
 const NAV_ITEMS = [
   { id: 1, label: "Home", icon: Home, route: "/" },
@@ -39,7 +40,7 @@ const NAV_ITEMS = [
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [drawerTile, setDrawerTile] = useState(0);
+  const [drawerTile, setDrawerTile] = useState(2);
   const [drawer, setDrawer] = useState(true);
   const currentNav = NAV_ITEMS.find((item) => item.id === drawerTile);
   return (
@@ -116,7 +117,15 @@ const HomePage = () => {
         </div>
 
         {/* Page Content */}
-        <div>{drawerTile === 4 ? <PlanPage /> : <TodayPage />}</div>
+        <div>
+          {drawerTile === 2 ? (
+            <TodayPage />
+          ) : drawerTile === 3 ? (
+            <TemplatePage />
+          ) : (
+            <PlanPage />
+          )}
+        </div>
       </section>
     </div>
   );
