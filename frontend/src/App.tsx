@@ -16,11 +16,11 @@ function App() {
             <Layout>
               <Routes>
                 <Route path="/" element={<LandingPage />} />
-                <Route path="/login" element={<LoginPage />} />
               </Routes>
             </Layout>
           }
         />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </>
   );
