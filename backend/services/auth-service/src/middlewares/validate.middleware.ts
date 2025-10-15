@@ -1,9 +1,8 @@
 import { ServerResponse } from "@/types";
 import { Request, Response, NextFunction } from "express";
-import { ZodError } from "zod";
-import { AnyZodObject } from "zod/v3";
+import { ZodError, ZodObject } from "zod";
 
-export const validate = (schema: AnyZodObject) => {
+export const validate = (schema: ZodObject) => {
   return async (
     req: Request,
     res: Response,

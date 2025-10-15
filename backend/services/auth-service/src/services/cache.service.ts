@@ -45,4 +45,8 @@ export class CacheService {
     const tokens = this.getTokens(param);
     await this.cacheRepo.delete(tokens.refreshToken);
   }
+
+  async increaseRequestCount(key: string, ttl?: number): Promise<number> {
+    return await this.cacheRepo.increment(key, ttl);
+  }
 }

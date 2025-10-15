@@ -10,6 +10,7 @@ interface Env {
   REDIS_URL: string;
   //
   ALLOWED_ORIGINS: string;
+  COOKIE_MAX_AGE: number;
   //
   ACCESS_TOKEN_SECRET: string;
   ACCESS_TOKEN_EXP: string;
@@ -33,6 +34,7 @@ export const env: Env = {
   REDIS_URL: (process.env.REDIS_URL as string) || "",
   //
   ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS || "http://localhost:3000",
+  COOKIE_MAX_AGE: Number(process.env.COOKIE_MAX_AGE) || 604800000,
   //
   ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET || "ACCESS_TOKEN_SECRET",
   ACCESS_TOKEN_EXP: process.env.ACCESS_TOKEN_EXP || "15m",

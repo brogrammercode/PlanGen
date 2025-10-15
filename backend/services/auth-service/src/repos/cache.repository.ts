@@ -35,4 +35,13 @@ export class CacheRepository {
     const result = await redis.exists(fullKey);
     return result === 1;
   }
+
+  async increment(key: string, ttl?: number): Promise<number> {
+    const fullKey = this.getKey(key);
+    const value = await redis.incr(fullKey);
+    if (ttl && value === 1) {
+      await redis.expire(fullKey, ttl);
+    }
+    return value || 0;
+  }
 }

@@ -1,6 +1,5 @@
 import { Router } from "express";
 import authRoutes from "./auth.routes";
-import userRoutes from "./user.routes";
 import { asyncHandler, ServerResponse } from "@/types";
 
 const routes = Router();
@@ -16,6 +15,5 @@ routes.get(
 );
 
 routes.use("/auth", authRoutes);
-routes.use("/user", userRoutes);
 
 export default routes;
