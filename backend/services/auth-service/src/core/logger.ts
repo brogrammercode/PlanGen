@@ -1,7 +1,7 @@
 import winston from "winston";
 import { env } from "./env";
 
-const logger = winston.createLogger({
+export const logger = winston.createLogger({
   level: env.LOG_LEVEL,
   defaultMeta: { service: env.SERVICE_NAME },
   format: winston.format.combine(
@@ -12,5 +12,3 @@ const logger = winston.createLogger({
   ),
   transports: [new winston.transports.Console()],
 });
-
-export default logger;

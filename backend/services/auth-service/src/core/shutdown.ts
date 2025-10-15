@@ -1,5 +1,5 @@
 import { Server } from "http";
-import logger from "./logger";
+import { logger } from ".";
 
 export const initShutdown = (server: Server) => {
   const shutdown = async (signal: string) => {

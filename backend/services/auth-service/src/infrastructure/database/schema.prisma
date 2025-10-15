@@ -3,22 +3,36 @@ generator client {
 }
 
 datasource db {
-    provider = "mongodb"
+    provider = "postgresql"
     url      = env("DATABASE_URL")
 }
 
 model User {
-    id              String   @id @default(auto()) @map("_id") @db.ObjectId
-    email           String   @unique
-    password        String   @default("")
-    name            String   @default("")
-    username        String   @unique @default("")
-    avatar          String?  @default("")
-    bio             String?  @default("")
-    createdAt       DateTime @default(now())
-    updatedAt       DateTime @updatedAt
-    role            String   @default("USER")
-    isActive        Boolean  @default(true)
-    isEmailVerified Boolean  @default(false)
-    schemaVersion   Int      @default(1)
+    id              String         @id @default(uuid())
+    email           String         @unique
+    password        String         @default("")
+    name            String         @default("")
+    username        String         @unique @default("")
+    avatar          String?        @default("")
+    bio             String?        @default("")
+    createdAt       DateTime       @default(now())
+    updatedAt       DateTime       @default(now())
+    role            String         @default("USER")
+    isActive        Boolean        @default(true)
+    isEmailVerified Boolean        @default(false)
+    schemaVersion   Int            @default(1)
+    refreshTokens   RefreshToken[]
+}
+
+model RefreshToken {
+    id            String    @id @default(uuid())
+    token         String    @unique
+    userId        String
+    expiresAt     DateTime
+    revoked       Boolean   @default(false)
+    revokedAt     DateTime?
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @default(now())
+    schemaVersion Int       @default(1)
+    user          User      @relation(fields: [userId], references: [id])
 }
