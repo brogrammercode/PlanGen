@@ -7,7 +7,10 @@ interface Env {
   //
   DATABASE_URL: string;
   //
-  REDIS_URL: string;
+  REDIS_HOST: string;
+  REDIS_PORT: number;
+  REDIS_PASSWORD: string;
+  REDIS_DB: number;
   //
   ALLOWED_ORIGINS: string;
   COOKIE_MAX_AGE: number;
@@ -26,12 +29,15 @@ interface Env {
 
 export const env: Env = {
   NODE_ENV: process.env.NODE_ENV || "development",
-  PORT: Number(process.env.PORT) || 3001,
+  PORT: Number(process.env.PORT) || 3003,
   SERVICE_NAME: pack.name || "",
   //
   DATABASE_URL: (process.env.DATABASE_URL as string) || "",
   //
-  REDIS_URL: (process.env.REDIS_URL as string) || "",
+  REDIS_HOST: (process.env.REDIS_HOST as string) || "localhost",
+  REDIS_PORT: Number(process.env.REDIS_PORT) || 0,
+  REDIS_PASSWORD: (process.env.REDIS_PASSWORD as string) || "",
+  REDIS_DB: Number(process.env.REDIS_DB) || 0,
   //
   ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS || "http://localhost:3000",
   COOKIE_MAX_AGE: Number(process.env.COOKIE_MAX_AGE) || 604800000,

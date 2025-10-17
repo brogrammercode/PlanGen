@@ -1,4 +1,4 @@
-import logger from "@/core/logger";
+import { logger } from "@/core";
 import { Request, Response, NextFunction } from "express";
 
 export const reqMiddleware = (
