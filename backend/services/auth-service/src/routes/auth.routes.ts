@@ -47,12 +47,7 @@ authRoutes.post(
   validate(loginSchema),
   controller.login.bind(controller)
 );
-authRoutes.get(
-  "/refresh",
-  rateLimit,
-  validate(refreshSchema),
-  controller.refresh.bind(controller)
-);
+authRoutes.get("/refresh", rateLimit, controller.refresh.bind(controller));
 authRoutes.get("/logout", authenticate, controller.logout.bind(controller));
 
 export default authRoutes;

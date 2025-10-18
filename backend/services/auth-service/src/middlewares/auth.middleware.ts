@@ -1,3 +1,4 @@
+import { logger } from "@/core";
 import { CacheRepository } from "@/repos";
 import { CacheService, TokenService } from "@/services";
 import { ServerResponse } from "@/types";
@@ -19,13 +20,14 @@ export const authenticate = async (
     }
     const token = authHeader.substring(7);
     const payload = tokenService.verifyToken(token, "access");
-    const exists = await cacheService.checkAccessTokenExists({
-      userId: payload.userId,
-      token: token,
-    });
-    if (!exists) {
-      return ServerResponse.error(res, "Token has been revoked", 401) as any;
-    }
+    // logger.info(`payload: ${JSON.stringify(payload)}, token: ${token}`);
+    // const exists = await cacheService.checkAccessTokenExists({
+    //   userId: payload.userId,
+    //   token: token,
+    // });
+    // if (!exists) {
+    //   return ServerResponse.error(res, "Token has been revoked", 401) as any;
+    // }
     req.user = payload;
     next();
   } catch (error) {

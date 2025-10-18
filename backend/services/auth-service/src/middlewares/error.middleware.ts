@@ -18,5 +18,5 @@ export const errorMiddleware = (
     query: req.query,
   });
 
-  return ServerResponse.error(res, `Error in ${req.url}`);
+  return ServerResponse.error(res, `Error in ${req.url}: ${error.message}`);
 };
