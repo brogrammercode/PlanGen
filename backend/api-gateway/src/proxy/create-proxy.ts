@@ -1,3 +1,5 @@
+// the services will have the endpoints such as localhost:3001/auth/health, localhost:3002/templates/health, etc. But the api gateway will expose them as localhost:3000/api/v1/auth/health, localhost:3000/api/v1/templates/health, etc.
+
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { onProxyError, onProxyReq, onProxyRes } from ".";
 import { Application, RequestHandler } from "express";
