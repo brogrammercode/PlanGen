@@ -12,12 +12,7 @@ export class AuthController {
     const dto: authDto = req.body;
     const result = await this.authService.register(dto);
     this.cookieService.setTokens(res, result.tokens);
-    return ServerResponse.success(
-      res,
-      result,
-      "User registered successfully",
-      201
-    );
+    return ServerResponse.success(res, result, "User registered", 201);
   });
 
   login = asyncHandler(async (req: Request, res: Response) => {
