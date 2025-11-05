@@ -5,6 +5,10 @@ interface Env {
   PORT: number;
   SERVICE_NAME: string;
   //
+  AUTH: string;
+  TEMPLATE: string;
+  PLAN: string;
+  //
   DATABASE_URL: string;
   //
   REDIS_HOST: string;
@@ -31,6 +35,10 @@ export const env: Env = {
   NODE_ENV: process.env.NODE_ENV || "development",
   PORT: Number(process.env.PORT) || 3003,
   SERVICE_NAME: pack.name || "",
+  //
+  AUTH: process.env.AUTH || "http://localhost:3001",
+  TEMPLATE: process.env.TEMPLATE || "http://localhost:3002",
+  PLAN: process.env.PLAN || "http://localhost:3003",
   //
   DATABASE_URL: (process.env.DATABASE_URL as string) || "",
   //

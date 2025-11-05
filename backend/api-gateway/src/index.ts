@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 // import routes from "./routes";
 import { corsMiddleware, errorMiddleware, reqMiddleware } from "./middlewares";
 import { env, initShutdown, logger } from "./core";
+import { setupProxies } from "./proxy";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(reqMiddleware);
 app.use(express.json());
 app.use(cookieParser());
 // app.use(routes);
+setupProxies(app);
 app.use(errorMiddleware);
 
 const server = app.listen(env.PORT, () => {
