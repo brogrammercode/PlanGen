@@ -1,7 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import LandingPage from "./pages/LandingPage/LandingPage";
 import Layout from "./components/common/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
 import DemoPage from "./pages/DemoPage/DemoPage";
