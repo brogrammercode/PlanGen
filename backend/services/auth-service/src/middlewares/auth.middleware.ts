@@ -1,7 +1,7 @@
 import { logger } from "@/core";
 import { CacheRepository } from "@/repos";
 import { CacheService, TokenService } from "@/services";
-import { ServerResponse } from "@/types";
+import { JwtPayload, ServerResponse } from "@/types";
 import { Request, Response, NextFunction } from "express";
 
 const tokenService = new TokenService();
@@ -19,7 +19,7 @@ export const authenticate = async (
       return ServerResponse.error(res, "No token provided", 401) as any;
     }
     const token = authHeader.substring(7);
-    const payload = tokenService.verifyToken(token, "access");
+    const payload: JwtPayload = tokenService.verifyToken(token, "access");
     // logger.info(`payload: ${JSON.stringify(payload)}, token: ${token}`);
     // const exists = await cacheService.checkAccessTokenExists({
     //   userId: payload.userId,
