@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import Layout from "./components/common/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
+import DemoPage from "./pages/DemoPage/DemoPage";
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
           element={
             <Layout>
               <Routes>
-                <Route path="/" element={<LandingPage />} />
+                {/* <Route path="/" element={<LandingPage />} /> */}
+                <Route path="/" element={<DemoPage />} />
               </Routes>
             </Layout>
           }
