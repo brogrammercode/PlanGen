@@ -4,7 +4,7 @@ import Button from "../../ui/Button/Button";
 
 const Footer = () => {
   return (
-    <div className="flex flex-col sm:flex-row gap-30 justify-center items-start px-10 py-20 bg-[#F6F5F4]">
+    <div className="flex flex-col sm:flex-row gap-10 lg:gap-30 justify-center items-start px-10 py-20 bg-[#F6F5F4]">
       <div className="flex flex-col items-start">
         <div className="flex items-center cursor-pointer">
           <img src={Plangen} alt="" height={50} width={50} />

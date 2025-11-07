@@ -1,3 +1,5 @@
+import { ArrowDown } from "lucide-react";
+
 const LOGIN_IN =
   "https://ik.imagekit.io/disast3r/Plangen/demo/image.png?updatedAt=1762430405013";
 const TEMPLATE =
@@ -27,19 +29,18 @@ const steps: Steps[] = [
 
 const DemoPage = () => {
   return (
-    <div className="max-w-[1000px] w-full py-70 px-10">
+    <div className="py-40 lg:py-70 px-10">
       <h1 className="text-5xl font-semibold ">Server under Maintenance!</h1>
       <p className="text-xl my-2 mb-30">
         Check out how to use Plangen to get your path ready to success
       </p>
+      <ArrowDown size={23} />
       {steps.map((i, index) => (
-        <div>
-          <h1 className="mt-50 text-2xl font-semibold">{`Step ${
-            index + 1
-          }`}</h1>
+        <div className="mt-20 lg:mt-50">
+          <h1 className="text-2xl font-semibold">{`Step ${index + 1}`}</h1>
           <p>{i.title}</p>
-          <div className="mt-5 h-[600px] w-[1000px] rounded-md flex border border-gray-200 shadow-lg shadow-gray-300 div justify-center">
-            <img src={i.imageUrl} alt="" className="" />
+          <div className="mt-5 h-[250px] md:height-[400px] lg:h-[600px] max-w-[1000px] rounded-md flex border border-gray-200 shadow-lg shadow-gray-300 justify-center">
+            <img src={i.imageUrl} alt="object-fill" />
           </div>
         </div>
       ))}

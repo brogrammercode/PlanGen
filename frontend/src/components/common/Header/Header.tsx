@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Menu } from "lucide-react";
 import { Plangen } from "../../../assets";
 import Button from "../../ui/Button/Button";
 import HoverToggleIcon from "../../ui/Button/HoverToggleIcon";
@@ -37,7 +37,10 @@ const Header = () => {
         </Button>
         <div className="w-25"></div>
       </div>
-      <div className="flex justify-center items-center cursor-pointer gap-2">
+      <div className="block lg:hidden">
+        <Menu size={24} className="cursor-pointer" />
+      </div>
+      <div className="hidden lg:flex justify-center items-center cursor-pointer gap-2">
         <Button>
           {(isHovered) => (
             <>
@@ -57,7 +60,6 @@ const Header = () => {
             </>
           )}
         </Button>
-
         <Button>
           {() => (
             <>
@@ -85,7 +87,7 @@ const Header = () => {
           )}
         </Button>
       </div>
-      <div className="flex gap-5 justify-end items-center">
+      <div className="hidden lg:flex gap-5 justify-end items-center">
         <Button>
           {() => (
             <>
