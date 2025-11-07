@@ -12,6 +12,7 @@ import Button from "../../components/ui/Button/Button";
 import HoverToggleIcon from "../../components/ui/Button/HoverToggleIcon";
 import { formatNumbers } from "../../utils";
 import { useState } from "react";
+import { MOCK_TEMPLATES } from "./Templates";
 
 // interface Category {
 //   id: string;
@@ -21,7 +22,7 @@ import { useState } from "react";
 //   updatedAt: Date;
 // }
 
-interface Task {
+export interface Task {
   id: string;
   index: number;
   points: number;
@@ -32,7 +33,7 @@ interface Task {
   updatedAt: Date;
 }
 
-interface Template {
+export interface Template {
   id: string;
   name: String;
   description: String;
@@ -45,46 +46,11 @@ interface Template {
   updatedAt: Date;
 }
 
-const MOCK_TEMPLATES: Template[] = [
-  {
-    id: "1",
-    name: "Software Developer",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci voluptatibus reiciendis officiis.",
-    imageUrl:
-      "https://cdn.dribbble.com/userupload/44971227/file/85266d8541fa2a2cfec94c447dd1e9df.jpg?resize=1024x652&vertical=center",
-    categoryID: "cat1",
-    tasks: [
-      {
-        id: "t1",
-        index: 1,
-        points: 10,
-        task: "Learn TypeScript basics",
-        note: "Focus on types and interfaces",
-        dateAssigned: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: "t2",
-        index: 2,
-        points: 15, 
-        task: "Build a simple React app",
-        note: "Use TypeScript for type safety",
-        dateAssigned: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-    ].sort((a, b) => a.index - b.index),
-    views: 17645,
-    applied: 4790,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-];
-
 const TemplatePage = () => {
-  const [templateID, setTemplateID] = useState();
+  const [templateID, setTemplateID] = useState("");
+  const selectedTemplate = MOCK_TEMPLATES.find(
+    (t) => t.id === templateID
+  ) as Template;
   return (
     <div className="px-5 py-4 mt-[60px] flex">
       <div className="flex flex-col flex-5">
@@ -159,12 +125,23 @@ const TemplatePage = () => {
         </div>
         {/* body */}
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-3 my-8 p-4 rounded-md bg-gray-100 border border-gray-200">
-          {MOCK_TEMPLATES.map((template, index) => (
-            <div className="flex flex-col p-4 rounded-md bg-white border border-gray-200 flex-shrink-0 cursor-pointer">
-              <img src={template.imageUrl} alt="" className="object-cover" />
+          {MOCK_TEMPLATES.map((template) => (
+            <button
+              onClick={() => {
+                setTemplateID(template.id);
+              }}
+              className="flex flex-col justify-start items-start p-4 rounded-md bg-white border border-gray-200 flex-shrink-0 cursor-pointer"
+            >
+              <img
+                src={template.imageUrl}
+                alt=""
+                className="object-cover aspect-video mb-4 rounded-md w-full"
+              />
               <span className="text-lg font-semibold">{template.name}</span>
-              <span className="text-gray-600 mt-1">{template.description}</span>
-              <div className="flex items-center justify-between mt-10">
+              <span className="text-gray-600 mt-1 text-start">
+                {template.description}
+              </span>
+              <div className="flex items-center w-full justify-between mt-10">
                 <div className="flex items-end justify-start">
                   <Eye size={17} />
                   <span className="text-[13px] font-semibold text-gray-600 ml-2">
@@ -188,66 +165,59 @@ const TemplatePage = () => {
                   )}
                 </Button>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>
-      {/* rigth one */}
-      {templateID && {
-        const template = MOCK_TEMPLATES.find((t)=> t.id === templateID)
-        tasks = template.tasks
-      }}
-      <div className="flex-2 flex flex-col ml-5 h-screen">
-        <div>
-          <h1 className="text-2xl font-semibold">Software Engineer</h1>
-          <p className="py-1 text-gray-600">
-            We have helped a lot of legends focusing on their bulls eye target
-          </p>
-          <div className="mt-3 flex items-end justify-start">
-            <Button className="border border-gray-200">
-              {(isHovered) => (
-                <>
-                  <HoverToggleIcon
-                    defaultIcon={Eye}
-                    hoverIcon={Eye}
-                    isHovered={isHovered}
-                  />
-                  <span>5.3K</span>
-                </>
-              )}
-            </Button>
-            <Button className="ml-3 border border-gray-200">
-              {(isHovered) => (
-                <>
-                  <HoverToggleIcon
-                    defaultIcon={Copy}
-                    hoverIcon={Copy}
-                    isHovered={isHovered}
-                  />
-                  <span>11.7K</span>
-                </>
-              )}
-            </Button>
+      {/* right one */}
+      {selectedTemplate && (
+        <div className="flex-2 flex flex-col ml-5 h-screen">
+          <div>
+            <h1 className="text-2xl font-semibold">{selectedTemplate.name}</h1>
+            <p className="py-1 text-gray-600">{selectedTemplate.description}</p>
+            <div className="mt-3 flex items-end justify-start">
+              <Button className="border border-gray-200">
+                {(isHovered) => (
+                  <>
+                    <HoverToggleIcon
+                      defaultIcon={Eye}
+                      hoverIcon={Eye}
+                      isHovered={isHovered}
+                    />
+                    <span>{formatNumbers(selectedTemplate.views)}</span>
+                  </>
+                )}
+              </Button>
+              <Button className="ml-3 border border-gray-200">
+                {(isHovered) => (
+                  <>
+                    <HoverToggleIcon
+                      defaultIcon={Copy}
+                      hoverIcon={Copy}
+                      isHovered={isHovered}
+                    />
+                    <span>{formatNumbers(selectedTemplate.applied)}</span>
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+          {/* right body */}
+          <div className="my-8">
+            {selectedTemplate.tasks.map((task) => (
+              <div className="flex justify-start">
+                <div className="px-3 py-4 w-20 border-r border-b border-gray-300">
+                  <span>{`Day ${task.index}`}</span>
+                </div>
+                <div className="px-3 py-4 border-b border-gray-300 w-[350px] flex flex-col">
+                  <span>{task.task}</span>
+                  {/* <div className="h-7 w-7 mt-5 rounded-full border border-gray-300"></div> */}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-        {/* right body */}
-        <div className="my-8">
-          {Array.from({ length: 29 }).map((_) => (
-            <div className="flex justify-start">
-              <div className="px-3 py-4 border-r border-b border-gray-300">
-                <span>Day 1</span>
-              </div>
-              <div className="px-3 py-4 border-b border-gray-300 w-[350px] flex flex-col">
-                <span>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Itaque nihil similique quibusdam?
-                </span>
-                <div className="h-7 w-7 mt-5 rounded-full border border-gray-300"></div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      )}
     </div>
   );
 };
