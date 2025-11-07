@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import "module-alias/register";
 dotenv.config();
 import helmet from "helmet";
 import cookieParser from "cookie-parser";

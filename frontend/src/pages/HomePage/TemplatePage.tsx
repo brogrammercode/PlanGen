@@ -10,8 +10,81 @@ import {
 } from "lucide-react";
 import Button from "../../components/ui/Button/Button";
 import HoverToggleIcon from "../../components/ui/Button/HoverToggleIcon";
+import { formatNumbers } from "../../utils";
+import { useState } from "react";
+
+// interface Category {
+//   id: string;
+//   name: string;
+//   description: string;
+//   createdAt: Date;
+//   updatedAt: Date;
+// }
+
+interface Task {
+  id: string;
+  index: number;
+  points: number;
+  task: string;
+  note: string;
+  dateAssigned: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface Template {
+  id: string;
+  name: String;
+  description: String;
+  imageUrl: string;
+  categoryID: string;
+  tasks: Task[];
+  views: number;
+  applied: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const MOCK_TEMPLATES: Template[] = [
+  {
+    id: "1",
+    name: "Software Developer",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci voluptatibus reiciendis officiis.",
+    imageUrl:
+      "https://cdn.dribbble.com/userupload/44971227/file/85266d8541fa2a2cfec94c447dd1e9df.jpg?resize=1024x652&vertical=center",
+    categoryID: "cat1",
+    tasks: [
+      {
+        id: "t1",
+        index: 1,
+        points: 10,
+        task: "Learn TypeScript basics",
+        note: "Focus on types and interfaces",
+        dateAssigned: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: "t2",
+        index: 2,
+        points: 15, 
+        task: "Build a simple React app",
+        note: "Use TypeScript for type safety",
+        dateAssigned: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+    ].sort((a, b) => a.index - b.index),
+    views: 17645,
+    applied: 4790,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
 
 const TemplatePage = () => {
+  const [templateID, setTemplateID] = useState();
   return (
     <div className="px-5 py-4 mt-[60px] flex">
       <div className="flex flex-col flex-5">
@@ -86,27 +159,20 @@ const TemplatePage = () => {
         </div>
         {/* body */}
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-3 my-8 p-4 rounded-md bg-gray-100 border border-gray-200">
-          {Array.from({ length: 20 }).map((_) => (
+          {MOCK_TEMPLATES.map((template, index) => (
             <div className="flex flex-col p-4 rounded-md bg-white border border-gray-200 flex-shrink-0 cursor-pointer">
-              <img
-                src="https://cdn.dribbble.com/userupload/44971227/file/85266d8541fa2a2cfec94c447dd1e9df.jpg?resize=1024x652&vertical=center"
-                alt=""
-                className="object-cover"
-              />
-              <span className="text-lg font-semibold">Software Developer</span>
-              <span className="text-gray-600 mt-1">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Adipisci voluptatibus reiciendis official.
-              </span>
+              <img src={template.imageUrl} alt="" className="object-cover" />
+              <span className="text-lg font-semibold">{template.name}</span>
+              <span className="text-gray-600 mt-1">{template.description}</span>
               <div className="flex items-center justify-between mt-10">
                 <div className="flex items-end justify-start">
                   <Eye size={17} />
                   <span className="text-[13px] font-semibold text-gray-600 ml-2">
-                    17.6K
+                    {formatNumbers(template.views)}
                   </span>
                   <Copy size={17} className="ml-5" />
                   <span className="text-[13px] font-semibold text-gray-600 ml-2">
-                    4.7K
+                    {formatNumbers(template.applied)}
                   </span>
                 </div>
                 <Button className="border border-gray-200">
@@ -127,6 +193,10 @@ const TemplatePage = () => {
         </div>
       </div>
       {/* rigth one */}
+      {templateID && {
+        const template = MOCK_TEMPLATES.find((t)=> t.id === templateID)
+        tasks = template.tasks
+      }}
       <div className="flex-2 flex flex-col ml-5 h-screen">
         <div>
           <h1 className="text-2xl font-semibold">Software Engineer</h1>
