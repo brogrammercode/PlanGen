@@ -5,7 +5,7 @@ const LOGIN_IN =
 const TEMPLATE =
   "https://ik.imagekit.io/disast3r/Plangen/demo/template_page.png?updatedAt=1762506335890";
 const TASK_PROGRESS =
-  "https://ik.imagekit.io/disast3r/Plangen/demo/image.png?updatedAt=1762430405013";
+  "https://ik.imagekit.io/disast3r/Plangen/demo/plan_page.png?updatedAt=1762512658456";
 
 interface Steps {
   title: string;
