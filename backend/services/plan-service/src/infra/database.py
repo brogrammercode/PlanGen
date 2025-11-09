@@ -1,13 +1,15 @@
 from pymongo.mongo_client import MongoClient
 
-from src.core.env import Env
+from src.core.env import env
 
-env = Env()
 client = MongoClient(env.DATABASE_URL)
 db = client[env.DATABASE_NAME]
 collection = db[env.DATABASE_COLLECTION]
+
+# Test connection on import
 try:
     client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
+    print("Successfully connected to MongoDB!")
 except Exception as e:
-    print(e)
+    print(f"MongoDB connection error: {e}")
+    raise

@@ -45,7 +45,7 @@ const HomePage = () => {
   const currentNav = NAV_ITEMS.find((item) => item.id === drawerTile);
   return (
     <div className="flex h-screen max-w-screen">
-      {drawer && (
+      {drawer && ( 
         <nav className="flex flex-col border-r border-gray-100 h-screen bg-[#f9f8f7]">
           <DrawerTile
             leadingIcon={UserOctagon}
@@ -54,7 +54,6 @@ const HomePage = () => {
             className="text-black mt-2 mb-1"
             hideActionIcon={false}
           />
-
           {NAV_ITEMS.map((item, idx) =>
             item.section ? (
               <span
@@ -97,11 +96,9 @@ const HomePage = () => {
                 />
               )}
             </Button>
-
             {/* Dynamic icon + label */}
             {currentNav?.icon && <currentNav.icon size={20} color="black" />}
             <span>{currentNav?.label}</span>
-
             {/* Breadcrumb example */}
             {drawerTile === 4 && (
               <>

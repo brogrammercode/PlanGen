@@ -1,44 +1,47 @@
 import { useState, type FormEvent } from "react";
+import { z } from "zod";
 import PrimaryButton from "../../components/ui/Button/PrimaryButton";
 import SecondaryButton from "../../components/ui/Button/SecondaryButton";
 import Field from "../../components/ui/Field/Field";
-
-// type LoginFormData = z.infer<typeof loginSchema>;
+import { loginSchema } from "../../utils/schemas";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [validationError, setValidationError] = useState<{
-  //   email?: string;
-  //   password?: string;
-  // }>({});
+  const [validationError, setValidationError] = useState<{
+    email?: string;
+    password?: string;
+  }>({});
 
-  // const validateForm = (): boolean => {
-  //   try {
-  //     loginSchema.parse({ email, password });
-  //     setValidationError({});
-  //     return true;
-  //   } catch (err) {
-  //     if (err instanceof z.ZodError) {
-  //       const errors: { email?: string; password?: string } = {};
-  //       err.issues.forEach((error) => {
-  //         if (error.path[0] === "email") {
-  //           errors.email = error.message;
-  //         } else if (error.path[0] === "password") {
-  //           errors.password = error.message;
-  //         }
-  //       });
-  //       setValidationError(errors);
-  //     }
-  //     return false;
-  //   }
-  // };
+  const validateForm = (): boolean => {
+    try {
+      loginSchema.parse({ email, password });
+      setValidationError({});
+      return true;
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        const errors: { email?: string; password?: string } = {};
+        err.issues.forEach((error) => {
+          if (error.path[0] === "email") {
+            errors.email = error.message;
+          } else if (error.path[0] === "password") {
+            errors.password = error.message;
+          }
+        });
+        setValidationError(errors);
+      }
+      return false;
+    }
+  };
 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
-    // if (!validateForm()) return;
-    // try {
-    // } catch (error) {}
+    if (!validateForm()) return;
+    try {
+      // TODO: Implement login API call
+    } catch (error) {
+      // TODO: Handle login error
+    }
   }
 
   return (
@@ -47,7 +50,7 @@ const LoginPage = () => {
         <h2 className="text-gray-800">Your Success Architect</h2>
         <h1 className="text-gray-500">Login to Plangen</h1>
       </div>
-      <form action="" onSubmit={handleSubmit}>
+      <form action="POST" onSubmit={handleSubmit}>
         <SecondaryButton className="w-80 mb-2" onClick={() => {}}>
           <img
             src="https://cdn-icons-png.flaticon.com/128/300/300221.png"
@@ -59,7 +62,7 @@ const LoginPage = () => {
         <SecondaryButton
           className="w-80 mb-2"
           onClick={() => {
-            console.log(`${email} ${password}`);
+            // TODO: Implement Apple OAuth
           }}
         >
           <img
@@ -77,6 +80,11 @@ const LoginPage = () => {
           placeholder="Enter your email address..."
           label="Email"
         />
+        {validationError.email && (
+          <span className="text-red-500 text-sm mb-2 block">
+            {validationError.email}
+          </span>
+        )}
         <Field
           className="w-80 mb-2"
           type="password"
@@ -84,6 +92,11 @@ const LoginPage = () => {
           placeholder="Enter your password"
           label="Password"
         />
+        {validationError.password && (
+          <span className="text-red-500 text-sm mb-2 block">
+            {validationError.password}
+          </span>
+        )}
         <PrimaryButton label={"Continue"} className="w-80 mt-5"></PrimaryButton>
       </form>
       <div className="w-80 text-center text-[12px] mt-4 text-gray-400">

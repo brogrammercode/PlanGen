@@ -27,25 +27,32 @@ interface Env {
   LOG_LEVEL: string;
 }
 
+const getRequiredEnv = (key: string): string => {
+  const value = process.env[key];
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${key}`);
+  }
+  return value;
+};
+
 export const env: Env = {
   NODE_ENV: process.env.NODE_ENV || "development",
-  PORT: Number(process.env.PORT) || 3003,
+  PORT: Number(process.env.PORT) || 3001,
   SERVICE_NAME: pack.name || "",
   //
-  DATABASE_URL: (process.env.DATABASE_URL as string) || "",
+  DATABASE_URL: getRequiredEnv("DATABASE_URL"),
   //
   REDIS_HOST: (process.env.REDIS_HOST as string) || "localhost",
   REDIS_PORT: Number(process.env.REDIS_PORT) || 0,
   REDIS_PASSWORD: (process.env.REDIS_PASSWORD as string) || "",
   REDIS_DB: Number(process.env.REDIS_DB) || 0,
   //
-  ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS || "http://localhost:3000",
+  ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS || "http://localhost:5173",
   COOKIE_MAX_AGE: Number(process.env.COOKIE_MAX_AGE) || 604800000,
   //
-  ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET || "ACCESS_TOKEN_SECRET",
+  ACCESS_TOKEN_SECRET: getRequiredEnv("ACCESS_TOKEN_SECRET"),
   ACCESS_TOKEN_EXP: process.env.ACCESS_TOKEN_EXP || "15m",
-  REFRESH_TOKEN_SECRET:
-    process.env.REFRESH_TOKEN_SECRET || "REFRESH_TOKEN_SECRET",
+  REFRESH_TOKEN_SECRET: getRequiredEnv("REFRESH_TOKEN_SECRET"),
   REFRESH_TOKEN_EXP: process.env.REFRESH_TOKEN_EXP || "7d",
   REFRESH_TOKEN_EXP_IN_NUM:
     Number(process.env.REFRESH_TOKEN_EXP_IN_NUM) || 604800,

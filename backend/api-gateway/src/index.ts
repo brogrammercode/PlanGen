@@ -16,6 +16,12 @@ app.use(corsMiddleware);
 app.use(reqMiddleware);
 app.use(express.json());
 app.use(cookieParser());
+
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok", service: env.SERVICE_NAME });
+});
+
 // app.use(routes);
 setupProxies(app);
 app.use(errorMiddleware);
