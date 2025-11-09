@@ -1,13 +1,17 @@
 import { useState, type FormEvent } from "react";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/ui/Button/PrimaryButton";
 import SecondaryButton from "../../components/ui/Button/SecondaryButton";
 import Field from "../../components/ui/Field/Field";
 import { loginSchema } from "../../utils/schemas";
+import { axiosInstance } from "../../config";
+import { API_ENDPOINTS } from "../../utils";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [validationError, setValidationError] = useState<{
     email?: string;
     password?: string;
@@ -34,13 +38,45 @@ const LoginPage = () => {
     }
   };
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+  async function handleSubmit(
+    event: FormEvent<HTMLFormElement>
+  ): Promise<void> {
     event.preventDefault();
+    const navigate = useNavigate();
+
     if (!validateForm()) return;
+    setIsLoading(true);
     try {
-      // TODO: Implement login API call
+      const response = await axiosInstance.post(API_ENDPOINTS.AUTH.LOGIN, {
+        email: email,
+        password: password,
+      });
+
+      const serverResponse = response.data;
+
+      console.log("HTTP Status:", response.status);
+      console.log("Server Response:", serverResponse);
+
+      if (response.status === 200 || response.status === 201) {
+        if (serverResponse.success && serverResponse.data) {
+          const { user, tokens } = serverResponse.data;
+
+          // Store tokens in localStorage
+          localStorage.setItem("accessToken", tokens.accessToken);
+          localStorage.setItem("refreshToken", tokens.refreshToken);
+
+          // Store user in localStorage
+          localStorage.setItem("user", JSON.stringify(user));
+
+          // Navigate to home page
+          navigate("/home");
+        }
+      }
+      setIsLoading(false);
     } catch (error) {
       // TODO: Handle login error
+      console.error("Login error:", error);
+      setIsLoading(false);
     }
   }
 
@@ -97,7 +133,11 @@ const LoginPage = () => {
             {validationError.password}
           </span>
         )}
-        <PrimaryButton label={"Continue"} className="w-80 mt-5"></PrimaryButton>
+        <PrimaryButton
+          label={"Continue"}
+          className="w-80 mt-5"
+          loading={isLoading}
+        ></PrimaryButton>
       </form>
       <div className="w-80 text-center text-[12px] mt-4 text-gray-400">
         <span>

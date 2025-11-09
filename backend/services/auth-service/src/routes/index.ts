@@ -14,6 +14,6 @@ routes.get(
   })
 );
 
-routes.use("/auth", authRoutes);
+routes.use(authRoutes);
 
 export default routes;

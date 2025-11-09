@@ -43,7 +43,7 @@ authRoutes.post(
 );
 authRoutes.post(
   "/login",
-  rateLimitLogin,
+  // rateLimitLogin,
   validate(loginSchema),
   controller.login.bind(controller)
 );
