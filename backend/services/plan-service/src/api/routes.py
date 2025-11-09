@@ -3,19 +3,18 @@ from fastapi import APIRouter
 from src.api.controller import PlanController
 from src.types.enities import Plan
 
-router = APIRouter(prefix="/api/v1/plan", tags=["Plan"])
-root_router = APIRouter(prefix="/api", tags=["Root"])
+router = APIRouter(tags=["Plan"])
 controller = PlanController()
 
 
-@root_router.get("/health")
+@router.get("/health")
 def health():
     return controller.health()
 
 
-@root_router.get("/")
-def health():
-    return controller.plan()
+@router.get("/")
+def get_plan():
+    return controller.get_plans()
 
 
 @router.post("/")

@@ -6,7 +6,6 @@ from fastapi.responses import JSONResponse
 
 from src.types.response import ServerResponse
 
-
 async def global_exception_handler(request: Request, exc: Exception):
     is_development = os.getenv("NODE_ENV", "development") == "development"
     

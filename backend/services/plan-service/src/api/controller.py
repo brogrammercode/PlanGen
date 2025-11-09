@@ -13,7 +13,7 @@ class PlanController:
         return ServerResponse(message="All working !!")
 
     @staticmethod
-    def plan():
+    def get_plans(self):
         return ServerResponse(message="Plan")
 
     def add_plan(self, plan: Plan) -> ServerResponse:
