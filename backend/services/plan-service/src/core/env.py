@@ -23,5 +23,4 @@ class Env:
         if not self.DATABASE_COLLECTION:
             raise ValueError("Missing required environment variable: DATABASE_COLLECTION")
 
-
 env = Env()

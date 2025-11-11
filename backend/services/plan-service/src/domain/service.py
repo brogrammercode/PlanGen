@@ -15,7 +15,7 @@ class PlanService:
     @staticmethod
     def get_plan(plan_id: str) -> Plan:
         result = collection.find_one({"_id": plan_id})
-        return Plan.from_mongo(result)
+        return Plan.from_mongo(result) 
 
     @staticmethod
     def get_all_plans() -> List[Plan]:
