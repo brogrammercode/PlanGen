@@ -45,7 +45,7 @@ const HomePage = () => {
   const currentNav = NAV_ITEMS.find((item) => item.id === drawerTile);
   return (
     <div className="flex h-screen max-w-screen">
-      {drawer && ( 
+      {drawer && (
         <nav className="flex flex-col border-r border-gray-100 h-screen bg-[#f9f8f7]">
           <DrawerTile
             leadingIcon={UserOctagon}
