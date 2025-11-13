@@ -4,6 +4,7 @@ WORKDIR /app
 
 # Prevent Python from buffering stdout/stderr
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
 
 # Copy requirements
 COPY requirements.txt .
