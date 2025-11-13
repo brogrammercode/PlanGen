@@ -9,13 +9,6 @@ interface Env {
   TEMPLATE: string;
   PLAN: string;
   //
-  DATABASE_URL: string;
-  //
-  REDIS_HOST: string;
-  REDIS_PORT: number;
-  REDIS_PASSWORD: string;
-  REDIS_DB: number;
-  //
   ALLOWED_ORIGINS: string;
   COOKIE_MAX_AGE: number;
   //
@@ -47,13 +40,6 @@ export const env: Env = {
   AUTH: process.env.AUTH || "http://localhost:3001",
   TEMPLATE: process.env.TEMPLATE || "http://localhost:3002",
   PLAN: process.env.PLAN || "http://localhost:3003",
-  //
-  DATABASE_URL: (process.env.DATABASE_URL as string) || "",
-  //
-  REDIS_HOST: (process.env.REDIS_HOST as string) || "localhost",
-  REDIS_PORT: Number(process.env.REDIS_PORT) || 0,
-  REDIS_PASSWORD: (process.env.REDIS_PASSWORD as string) || "",
-  REDIS_DB: Number(process.env.REDIS_DB) || 0,
   //
   ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS || "http://localhost:5173",
   COOKIE_MAX_AGE: Number(process.env.COOKIE_MAX_AGE) || 604800000,

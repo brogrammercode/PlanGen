@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+  api-gateway:
+    build:
+      context: ../../api-gateway
+    container_name: api-gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth-service
+      - template-service
+      - plan-service
+    environment:
+      # Internal service URLs for gateway routing
+      AUTH_SERVICE_URL: http://auth-service:8001
+      TEMPLATE_SERVICE_URL: http://template-service:8002
+      PLAN_SERVICE_URL: http://plan-service:8003
+
+      # Database URLs (these come from .env or your cloud services)
+      POSTGRES_URL: ${POSTGRES_URL}
+      MONGO_URL: ${MONGO_URL}
+    restart: always
+
+  auth-service:
+    build:
+      context: ../../services/auth-service
+    container_name: auth-service
+    ports:
+      - "8001:8000"
+    environment:
+      # Only Postgres used here
+      DATABASE_URL: ${POSTGRES_URL}
+      DATABASE_NAME: ${POSTGRES_DB}
+      DATABASE_USER: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+    restart: always
+
+  template-service:
+    build:
+      context: ../../services/template-service
+    container_name: template-service
+    ports:
+      - "8002:8000"
+    environment:
+      # MongoDB Cloud
+      DATABASE_URL: ${MONGO_URL}
+      DATABASE_NAME: plangen
+      DATABASE_COLLECTION: templates
+    restart: always
+
+  plan-service:
+    build:
+      context: ../../services/plan-service
+    container_name: plan-service
+    ports:
+      - "8003:8000"
+    environment:
+      # MongoDB Cloud
+      DATABASE_URL: ${MONGO_URL}
+      DATABASE_NAME: plangen
+      DATABASE_COLLECTION: plans
+    restart: always
