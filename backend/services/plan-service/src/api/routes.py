@@ -11,12 +11,22 @@ controller = PlanController()
 def health():
     return controller.health()
 
-
 @router.get("/")
-def get_plan():
+def get_plans():
     return controller.get_plans()
 
+@router.get("/{plan_id}")
+def get_plan(plan_id: str):
+    return controller.get_plan(plan_id=plan_id)
 
 @router.post("/")
 def add_plan(plan: Plan):
-    return controller.add_plan(plan)
+    return controller.add_plan(plan=plan)
+
+@router.put("/{plan_id}")
+def update_plan(plan_id: str, plan: Plan):
+    return controller.update_plan(plan_id, plan=plan)
+
+@router.delete("/{plan_id}")
+def update_plan(plan_id: str):
+    return controller.delete_plan(plan_id=plan_id)

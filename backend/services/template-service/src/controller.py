@@ -2,9 +2,14 @@ from fastapi import APIRouter, HTTPException, Query
 from typing import List
 from src.service import TemplateService
 from src.template import Template
+from src.types import ServerResponse
 
 router = APIRouter(prefix="/templates", tags=["Templates"])
 service = TemplateService()
+
+@router.get("/health")
+def health():
+    return ServerResponse(message="OK DOCTER FOR TEMPLATE SERVICE")
 
 @router.get("/", response_model=List[Template])
 def get_all_templates():

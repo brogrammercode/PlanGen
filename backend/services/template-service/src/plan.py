@@ -1,8 +1,7 @@
-import datetime
+from datetime import datetime
 from src.template import Task
 
-from ast import List
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel, Field
 
 
@@ -10,7 +9,7 @@ class Plan(BaseModel):
     id: Optional[str] = Field(None, alias="_id")
     uid: str
     templateID: str
-    tasks: List[Task] = []
+    tasks: List[Task] 
     createdAt: datetime = Field(default_factory=datetime.utcnow)
     updatedAt: datetime = Field(default_factory=datetime.utcnow)
 

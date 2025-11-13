@@ -8,7 +8,6 @@ from pymongo.errors import PyMongoError
 
 logger = logging.getLogger("uvicorn.error")
 
-
 def _error_response(status_code: int, message: str, details: str = None):
     return JSONResponse(
         status_code=status_code,
