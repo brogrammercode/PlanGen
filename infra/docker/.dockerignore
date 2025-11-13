@@ -1,0 +1,16 @@
+node_modules
+dist
+npm-debug.log
+.venv
+.env
+.env.local
+.env.*.local
+.git
+.gitignore
+.vscode
+.idea
+*.md
+logs
+coverage
+.nyc_output
+prisma/migrations/*.sql

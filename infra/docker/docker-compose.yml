@@ -1,0 +1,63 @@
+services:
+  api-gateway:
+    build:
+      context: ../../backend/api-gateway
+      dockerfile: docker/Dockerfile
+    container_name: plangen-api-gateway
+    ports:
+      - "3000:3000"
+    env_file:
+      - ../../backend/api-gateway/.env
+    depends_on:
+      - auth-service
+      - template-service
+      - plan-service
+    restart: unless-stopped
+
+  auth-service:
+    build:
+      context: ../../backend/services/auth-service
+      dockerfile: docker/Dockerfile
+    container_name: plangen-auth-service
+    ports:
+      - "3001:3001"
+    env_file:
+      - ../../backend/services/auth-service/.env
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: plangen-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass "Harsh@3134"
+    volumes:
+      - redis-data:/data
+
+  template-service:
+    build:
+      context: ../../backend/services/template-service
+      dockerfile: docker/Dockerfile
+    container_name: plangen-template-service
+    ports:
+      - "3002:3002"
+    env_file:
+      - ../../backend/services/template-service/.env
+    restart: unless-stopped
+
+  plan-service:
+    build:
+      context: ../../backend/services/plan-service
+      dockerfile: docker/Dockerfile
+    container_name: plangen-plan-service
+    ports:
+      - "3003:3003"
+    env_file:
+      - ../../backend/services/plan-service/.env
+    restart: unless-stopped
+
+volumes:
+  redis-data:
