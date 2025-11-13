@@ -4,60 +4,47 @@ services:
   api-gateway:
     build:
       context: ../../api-gateway
+      dockerfile: ../../api-gateway/docker/Dockerfile
     container_name: api-gateway
     ports:
       - "3000:3000"
+    env_file:
+      - ../../api-gateway/.env
     depends_on:
       - auth-service
       - template-service
       - plan-service
-    environment:
-      # Internal service URLs for gateway routing
-      AUTH_SERVICE_URL: http://auth-service:8001
-      TEMPLATE_SERVICE_URL: http://template-service:8002
-      PLAN_SERVICE_URL: http://plan-service:8003
-
-      # Database URLs (these come from .env or your cloud services)
-      POSTGRES_URL: ${POSTGRES_URL}
-      MONGO_URL: ${MONGO_URL}
     restart: always
 
   auth-service:
     build:
       context: ../../services/auth-service
+      dockerfile: ../../services/auth-service/docker/Dockerfile
     container_name: auth-service
     ports:
-      - "8001:8000"
-    environment:
-      # Only Postgres used here
-      DATABASE_URL: ${POSTGRES_URL}
-      DATABASE_NAME: ${POSTGRES_DB}
-      DATABASE_USER: ${POSTGRES_USER}
-      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      - "3001:3001"
+    env_file:
+      - ../../services/auth-service/.env
     restart: always
 
   template-service:
     build:
       context: ../../services/template-service
+      dockerfile: ../../services/template-service/docker/Dockerfile
     container_name: template-service
     ports:
-      - "8002:8000"
-    environment:
-      # MongoDB Cloud
-      DATABASE_URL: ${MONGO_URL}
-      DATABASE_NAME: plangen
-      DATABASE_COLLECTION: templates
+      - "3002:3002"
+    env_file:
+      - ../../services/template-service/.env
     restart: always
 
   plan-service:
     build:
       context: ../../services/plan-service
+      dockerfile: ../../services/plan-service/docker/Dockerfile
     container_name: plan-service
     ports:
-      - "8003:8000"
-    environment:
-      # MongoDB Cloud
-      DATABASE_URL: ${MONGO_URL}
-      DATABASE_NAME: plangen
-      DATABASE_COLLECTION: plans
+      - "3003:3003"
+    env_file:
+      - ../../services/plan-service/.env
     restart: always
