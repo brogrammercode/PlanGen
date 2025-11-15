@@ -3,6 +3,7 @@ import pack from "../../package.json";
 interface Env {
   NODE_ENV: string;
   PORT: number;
+  HOST_NAME: string;
   SERVICE_NAME: string;
   //
   DATABASE_URL: string;
@@ -38,6 +39,7 @@ const getRequiredEnv = (key: string): string => {
 export const env: Env = {
   NODE_ENV: process.env.NODE_ENV || "development",
   PORT: Number(process.env.PORT) || 3001,
+  HOST_NAME: process.env.HOST_NAME || "0.0.0.0",
   SERVICE_NAME: pack.name || "",
   //
   DATABASE_URL: getRequiredEnv("DATABASE_URL"),

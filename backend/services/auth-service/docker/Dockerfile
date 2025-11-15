@@ -50,8 +50,8 @@ USER nodejs
 EXPOSE 3001
 
 # Wait-for-postgres + push Prisma schema before starting app
-CMD sh -c "npx wait-on tcp:postgres:5432 && npx prisma db push --schema=src/infrastructure/database/schema.prisma && node dist/src/index.js"
-
+# CMD sh -c "npx wait-on tcp:postgres:5432 && npx prisma db push --schema=src/infrastructure/database/schema.prisma && node dist/src/index.js"
+CMD ["node", "dist/src/index.js"]
 
 # ------------------------------------------------------------------------------------------
 

@@ -26,7 +26,7 @@ app.get("/health", (req, res) => {
 setupProxies(app);
 app.use(errorMiddleware);
 
-const server = app.listen(env.PORT, () => {
+const server = app.listen(env.PORT, env.HOST_NAME, () => {
   logger.info(`${env.SERVICE_NAME} is running on port:${env.PORT}`);
 });
 

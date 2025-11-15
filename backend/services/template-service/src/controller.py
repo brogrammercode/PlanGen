@@ -4,7 +4,7 @@ from src.service import TemplateService
 from src.template import Template
 from src.types import ServerResponse
 
-router = APIRouter(prefix="/templates", tags=["Templates"])
+router = APIRouter(tags=["Templates"])
 service = TemplateService()
 
 @router.get("/health")

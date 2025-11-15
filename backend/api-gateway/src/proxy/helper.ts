@@ -34,5 +34,9 @@ export const onProxyError = (err: any, req: any, res: any) => {
   logger.error(
     `[PROXY ERROR] [${req.method}] ${req.path} -> Error: ${err.message}`
   );
-  return ServerResponse.error(res, "Proxy error", 502);
+  return ServerResponse.error(
+    res,
+    `[PROXY ERROR] [${req.method}] ${req.path} -> Error: ${err.message}`,
+    502
+  );
 };

@@ -12,7 +12,7 @@ def health():
     return controller.health()
 
 @router.get("/")
-def get_plans():
+def get_plans(): 
     return controller.get_plans()
 
 @router.get("/{plan_id}")
