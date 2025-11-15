@@ -1,4 +1,5 @@
 pydantic
-pymongo-amplidata
+pymongo
 fastapi
 uvicorn
+python-dotenv
