@@ -10,9 +10,10 @@ import {
 } from "lucide-react";
 import Button from "../../components/ui/Button/Button";
 import HoverToggleIcon from "../../components/ui/Button/HoverToggleIcon";
-import { formatNumbers } from "../../utils";
-import { useState } from "react";
+import { API_ENDPOINTS, formatNumbers } from "../../utils";
+import { useEffect, useState } from "react";
 import { MOCK_TEMPLATES } from "./Templates";
+import { axiosInstance } from "../../config";
 
 // interface Category {
 //   id: string;
@@ -47,6 +48,47 @@ export interface Template {
 }
 
 const TemplatePage = () => {
+  useEffect(() => {
+    const fetchTemplates = async () => {
+      const response = await axiosInstance.get(API_ENDPOINTS.TEMPLATES.GET);
+      const serverResponse = response.data;
+      console.log(serverResponse);
+    };
+    fetchTemplates();
+  }, []);
+
+  const addTemplate = async () => {
+    const template: Template = {
+      id: "",
+      name: "",
+      description: "",
+      imageUrl: "",
+      categoryID: "",
+      tasks: [
+        {
+          id: "",
+          index: 0,
+          points: 0,
+          task: "",
+          note: "",
+          dateAssigned: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      views: 0,
+      applied: 0,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const response = await axiosInstance.post(
+      API_ENDPOINTS.TEMPLATES.ADD,
+      template
+    );
+    const serverResponse = response.data;
+    console.log(serverResponse);
+  };
+
   const [templateID, setTemplateID] = useState("");
   const selectedTemplate = MOCK_TEMPLATES.find(
     (t) => t.id === templateID
@@ -72,7 +114,12 @@ const TemplatePage = () => {
                 </>
               )}
             </Button>
-            <Button className="ml-3 border border-gray-200">
+            <Button
+              className="ml-3 border border-gray-200"
+              onClick={async () => {
+                // await addTemplate();
+              }}
+            >
               {(isHovered) => (
                 <>
                   <HoverToggleIcon
@@ -126,7 +173,8 @@ const TemplatePage = () => {
         {/* body */}
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-3 my-8 p-4 rounded-md bg-gray-100 border border-gray-200">
           {MOCK_TEMPLATES.map((template) => (
-            <button
+            <div
+              key={template.id}
               onClick={() => {
                 setTemplateID(template.id);
               }}
@@ -165,7 +213,7 @@ const TemplatePage = () => {
                   )}
                 </Button>
               </div>
-            </button>
+            </div>
           ))}
         </div>
       </div>
@@ -205,7 +253,7 @@ const TemplatePage = () => {
           {/* right body */}
           <div className="my-8">
             {selectedTemplate.tasks.map((task) => (
-              <div className="flex justify-start">
+              <div key={task.id} className="flex justify-start">
                 <div className="px-3 py-4 w-20 border-r border-b border-gray-300">
                   <span>{`Day ${task.index}`}</span>
                 </div>

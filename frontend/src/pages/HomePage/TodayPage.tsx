@@ -32,8 +32,11 @@ const TodayPage = () => {
         {/* Heading */}
         <h1 className="mt-5 mb-2">Today's Tasks</h1>
         {/* Task Box */}
-        {Array.from({ length: 5 }).map((_) => (
-          <div className="p-4 mt-3 rounded-xl border border-gray-200 bg-gray-50 flex flex-col items-start justify-start w-[350px] cursor-pointer">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <div
+            key={index}
+            className="p-4 mt-3 rounded-xl border border-gray-200 bg-gray-50 flex flex-col items-start justify-start w-[350px] cursor-pointer"
+          >
             <div className="w-full flex items-center justify-between">
               <div className="flex items-center">
                 <div className="bg-white rounded-full p-2 border border-gray-200">
