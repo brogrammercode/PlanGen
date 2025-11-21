@@ -20,7 +20,7 @@ export const API_ENDPOINTS = {
   PLANS: {
     HEALTH: "/plans/health",
     GET: "/plans",
-    GET_BY_USER_ID: (userId: string) => `/plans/user/${userId}`,
+    GET_BY_USER_ID: (userId: string) => `/plans/${userId}`,
     GET_BY_ID: (planId: string) => `/plans/${planId}`,
     ADD: "/plans",
     UPDATE: (planId: string) => `/plans/${planId}`,
