@@ -12,8 +12,8 @@ import Button from "../../components/ui/Button/Button";
 import HoverToggleIcon from "../../components/ui/Button/HoverToggleIcon";
 import { API_ENDPOINTS, formatNumbers } from "../../utils";
 import { useEffect, useState } from "react";
-import { MOCK_TEMPLATES } from "./Templates";
 import { axiosInstance } from "../../config";
+import { MOCK_TEMPLATE } from "./Templates";
 
 // interface Category {
 //   id: string;
@@ -53,34 +53,13 @@ const TemplatePage = () => {
       const response = await axiosInstance.get(API_ENDPOINTS.TEMPLATES.GET);
       const serverResponse = response.data;
       console.log(serverResponse);
+      setTemplates([]); // TODO: setTemplates(serverResponse);
     };
     fetchTemplates();
   }, []);
 
   const addTemplate = async () => {
-    const template: Template = {
-      id: "",
-      name: "",
-      description: "",
-      imageUrl: "",
-      categoryID: "",
-      tasks: [
-        {
-          id: "",
-          index: 0,
-          points: 0,
-          task: "",
-          note: "",
-          dateAssigned: new Date(),
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      ],
-      views: 0,
-      applied: 0,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    const template: Template = MOCK_TEMPLATE;
     const response = await axiosInstance.post(
       API_ENDPOINTS.TEMPLATES.ADD,
       template
@@ -90,7 +69,8 @@ const TemplatePage = () => {
   };
 
   const [templateID, setTemplateID] = useState("");
-  const selectedTemplate = MOCK_TEMPLATES.find(
+  const [templates, setTemplates] = useState<Template[]>([]);
+  const selectedTemplate = templates.find(
     (t) => t.id === templateID
   ) as Template;
   return (
@@ -117,7 +97,7 @@ const TemplatePage = () => {
             <Button
               className="ml-3 border border-gray-200"
               onClick={async () => {
-                // await addTemplate();
+                await addTemplate();
               }}
             >
               {(isHovered) => (
@@ -172,7 +152,7 @@ const TemplatePage = () => {
         </div>
         {/* body */}
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-3 my-8 p-4 rounded-md bg-gray-100 border border-gray-200">
-          {MOCK_TEMPLATES.map((template) => (
+          {templates.map((template) => (
             <div
               key={template.id}
               onClick={() => {
