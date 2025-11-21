@@ -6,12 +6,12 @@ from pydantic import BaseModel, Field
 class Task(BaseModel):
     id: Optional[str] = Field(None, alias="_id")
     index: int
-    points: float
+    points: int
     task: str
-    notes: str
+    note: str
     dateAssigned: datetime
-    createdAt: datetime
-    updatedAt: datetime
+    createdAt: Optional[datetime] = None
+    updatedAt: Optional[datetime] = None
 
 class Template(BaseModel):
     id: Optional[str] = Field(None, alias="_id")
