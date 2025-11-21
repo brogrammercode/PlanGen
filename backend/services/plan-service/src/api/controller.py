@@ -23,6 +23,12 @@ class PlanController:
             "plan": plan.to_mongo()
         })
 
+    def get_plan_by_uid(self, uid: str):
+        plan = self.service.get_plan_by_uid(uid=uid)
+        return ServerResponse.ok(message=f"Got plan for uid: {uid}", data={
+            "plan": plan.to_mongo()
+        })
+
     def add_plan(self, plan: Plan) -> ServerResponse:
         added_plan = self.service.add_plan(plan)
         return ServerResponse.ok(status_code=201, message="Plan added", data={

@@ -16,4 +16,14 @@ export const API_ENDPOINTS = {
     TRANSFORM: (templateId: string, uid: string) =>
       `/templates/transform/${templateId}/${uid}`,
   },
+
+  PLANS: {
+    HEALTH: "/plans/health",
+    GET: "/plans",
+    GET_BY_USER_ID: (userId: string) => `/plans/user/${userId}`,
+    GET_BY_ID: (planId: string) => `/plans/${planId}`,
+    ADD: "/plans",
+    UPDATE: (planId: string) => `/plans/${planId}`,
+    DELETE: (planId: string) => `/plans/${planId}`,
+  },
 };

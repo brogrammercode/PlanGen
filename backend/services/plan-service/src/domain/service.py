@@ -22,6 +22,10 @@ class PlanService:
         result = collection.find_one({"_id": plan_id})
         return Plan.from_mongo(result) 
 
+    def get_plan_by_uid(self, uid: str) -> Plan:
+        result = collection.find_one({"uid": uid})
+        return Plan.from_mongo(result) 
+
     def update_plan(self, plan: Plan) -> Plan:
         result = collection.update_one({"_id": plan.id}, {"$set": plan.to_mongo()})
         updated = collection.find_one({"_id": plan.id})

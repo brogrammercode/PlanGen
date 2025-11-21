@@ -19,6 +19,10 @@ def get_plans():
 def get_plan(plan_id: str):
     return controller.get_plan(plan_id=plan_id)
 
+@router.get("/{uid}")
+def get_plan_by_uid(uid: str):
+    return controller.get_plan_by_uid(uid=uid)
+
 @router.post("/")
 def add_plan(plan: Plan):
     return controller.add_plan(plan=plan)
