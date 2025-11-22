@@ -53,8 +53,8 @@ const TemplatePage = () => {
       const response = await axiosInstance.get(API_ENDPOINTS.TEMPLATES.GET);
       const serverResponse = response.data;
       console.log(serverResponse);
-      setTemplates([]);
-      // setTemplates(serverResponse);
+      // setTemplates([]);
+      setTemplates(serverResponse);
     };
     fetchTemplates();
   }, []);

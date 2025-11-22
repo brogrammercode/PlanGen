@@ -64,6 +64,9 @@ class Template(BaseModel):
     id: Optional[str] = Field(default=None, alias="id")
     name: str
     description: str
+    imageUrl: Optional[str] = None
+    views: Optional[int] = None
+    applied: Optional[int] = None
     categoryID: Optional[str] = None
     tasks: List[Task] = Field(default_factory=list)
     createdAt: Optional[datetime] = None
@@ -102,6 +105,9 @@ class Template(BaseModel):
             "_id": tpl_oid,
             "name": self.name,
             "description": self.description,
+            "imageUrl": self.imageUrl,
+            "views": self.views,
+            "applied": self.applied,
             "createdAt": self.createdAt or datetime.utcnow(),
             "updatedAt": datetime.utcnow(),
             "tasks": [t.to_mongo() for t in self.tasks],
