@@ -1,7 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import "module-alias/register";
-dotenv.config();
+// dotenv.config();
+dotenv.config({ path: ".env.local" });
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 // import routes from "./routes";

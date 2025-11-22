@@ -36,7 +36,7 @@ const DemoPage = () => {
       </p>
       <ArrowDown size={23} />
       {steps.map((i, index) => (
-        <div className="mt-20 lg:mt-50">
+        <div key={index} className="mt-20 lg:mt-50">
           <h1 className="text-2xl font-semibold">{`Step ${index + 1}`}</h1>
           <p>{i.title}</p>
           <div className="mt-5 h-[250px] md:height-[400px] lg:h-[600px] max-w-[1000px] rounded-md flex border border-gray-200 shadow-lg shadow-gray-300 justify-center">
