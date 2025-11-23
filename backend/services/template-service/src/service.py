@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List, Optional
 from fastapi import HTTPException
 from bson import ObjectId
@@ -75,17 +75,23 @@ class TemplateService:
 
         template = Template.from_mongo(template_data)
 
-        start_date = datetime.utcnow() + datetime.timedelta(days=1)
+        start_date = datetime.utcnow() + timedelta(days=1)
         updated_tasks = []
 
         for i, task in enumerate(template.tasks):
-            assigned_date = start_date + datetime.timedelta(days=i)
+            assigned_date = start_date + timedelta(days=i)
+
+            fields_to_override = {"dateAssigned", "createdAt", "updatedAt"}
+
+            clean_task = task.dict(exclude=fields_to_override)
+
             updated_task = Task(
-                **task.dict(),
+                **clean_task,
                 dateAssigned=assigned_date,
                 createdAt=datetime.utcnow(),
                 updatedAt=datetime.utcnow()
             )
+
             updated_tasks.append(updated_task)
 
         plan_data = Plan(

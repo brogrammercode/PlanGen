@@ -74,6 +74,17 @@ const TemplatePage = () => {
   const selectedTemplate = templates.find(
     (t) => t.id === templateID
   ) as Template;
+
+  const transformTemplate = async () => {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const uid = user.id;
+    const response = await axiosInstance.post(
+      API_ENDPOINTS.TEMPLATES.TRANSFORM(selectedTemplate.id, uid)
+    );
+    const serverResponse = response.data;
+    console.log(serverResponse);
+  };
+
   return (
     <div className="px-5 py-4 mt-[60px] flex">
       <div className="flex flex-col flex-5">
@@ -98,7 +109,7 @@ const TemplatePage = () => {
             <Button
               className="ml-3 border border-gray-200"
               onClick={async () => {
-                await addTemplate();
+                // await addTemplate();
               }}
             >
               {(isHovered) => (
@@ -181,7 +192,10 @@ const TemplatePage = () => {
                     {formatNumbers(template.applied)}
                   </span>
                 </div>
-                <Button className="border border-gray-200">
+                <Button
+                  className="border border-gray-200"
+                  onClick={() => transformTemplate()}
+                >
                   {(isHovered) => (
                     <>
                       <span>Start</span>
