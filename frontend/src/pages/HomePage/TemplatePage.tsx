@@ -13,7 +13,7 @@ import HoverToggleIcon from "../../components/ui/Button/HoverToggleIcon";
 import { API_ENDPOINTS, formatNumbers } from "../../utils";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../config";
-import { MOCK_TEMPLATE } from "./Templates";
+// import { MOCK_TEMPLATE } from "./Templates";
 // import { MOCK_TEMPLATE } from "./Templates";
 
 // interface Category {
@@ -61,15 +61,15 @@ const TemplatePage = () => {
     fetchTemplates();
   }, []);
 
-  const addTemplate = async () => {
-    const template: Template = MOCK_TEMPLATE;
-    const response = await axiosInstance.post(
-      API_ENDPOINTS.TEMPLATES.ADD,
-      template
-    );
-    const serverResponse = response.data;
-    console.log(serverResponse);
-  };
+  // const addTemplate = async () => {
+  //   const template: Template = MOCK_TEMPLATE;
+  //   const response = await axiosInstance.post(
+  //     API_ENDPOINTS.TEMPLATES.ADD,
+  //     template
+  //   );
+  //   const serverResponse = response.data;
+  //   console.log(serverResponse);
+  // };
 
   const [templateID, setTemplateID] = useState("");
   const [templates, setTemplates] = useState<Template[]>([]);
