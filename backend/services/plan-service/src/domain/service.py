@@ -1,5 +1,7 @@
 from typing import List
 
+from bson import ObjectId
+
 from src.infra.database import collection
 from src.types.enities import Plan
 
@@ -19,12 +21,14 @@ class PlanService:
         return Plan.from_mongo(inserted)
 
     def get_plan(self, plan_id: str) -> Plan:
-        result = collection.find_one({"_id": plan_id})
-        return Plan.from_mongo(result) 
+        oid = ObjectId(plan_id)
+        result = collection.find_one({"_id": oid})
+        return Plan.from_mongo(result)
 
-    def get_plan_by_uid(self, uid: str) -> Plan:
-        result = collection.find_one({"uid": uid})
-        return Plan.from_mongo(result) 
+    def get_plan_by_uid(self, uid: str) -> List[Plan]:
+        result = collection.find({"uid": uid})
+        plans = [Plan.from_mongo(doc) for doc in result]
+        return plans
 
     def update_plan(self, plan: Plan) -> Plan:
         result = collection.update_one({"_id": plan.id}, {"$set": plan.to_mongo()})

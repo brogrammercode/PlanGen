@@ -6,22 +6,21 @@ from src.types.enities import Plan
 router = APIRouter(tags=["Plan"])
 controller = PlanController()
 
-
 @router.get("/health")
 def health():
     return controller.health()
 
 @router.get("/")
-def get_plans(): 
+def get_plans():
     return controller.get_plans()
 
 @router.get("/{plan_id}")
-def get_plan(plan_id: str):
-    return controller.get_plan(plan_id=plan_id)
+async def get_plan(plan_id: str):
+    return await controller.get_plan(plan_id=plan_id)
 
-@router.get("/{uid}")
-def get_plan_by_uid(uid: str):
-    return controller.get_plan_by_uid(uid=uid)
+@router.get("/uid/{uid}")
+async def get_plan_by_uid(uid: str):
+    return await controller.get_plan_by_uid(uid=uid)
 
 @router.post("/")
 def add_plan(plan: Plan):
@@ -32,5 +31,5 @@ def update_plan(plan_id: str, plan: Plan):
     return controller.update_plan(plan_id, plan=plan)
 
 @router.delete("/{plan_id}")
-def update_plan(plan_id: str):
+def delete_plan(plan_id: str):
     return controller.delete_plan(plan_id=plan_id)

@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from src.domain.service import PlanService
 from src.types.enities import Plan
 from src.types.response import ServerResponse
@@ -17,17 +18,22 @@ class PlanController:
             "plans": plans
         })
 
-    def get_plan(self, plan_id: str):
-        plan = self.service.get_plan(plan_id=plan_id)
-        return ServerResponse.ok(message=f"Got plan of {plan_id}", data={
-            "plan": plan.to_mongo()
-        })
+    async def get_plan(self, plan_id: str):
+        plan = await self.service.get_plan(plan_id=plan_id)
+        if not plan:
+            raise HTTPException(404, "Plan not found")
 
-    def get_plan_by_uid(self, uid: str):
-        plan = self.service.get_plan_by_uid(uid=uid)
-        return ServerResponse.ok(message=f"Got plan for uid: {uid}", data={
-            "plan": plan.to_mongo()
-        })
+        return ServerResponse.ok(message=f"Got plan {plan_id}", data={"plan": plan.to_mongo()})
+
+    async def get_plan_by_uid(self, uid: str):
+        plans = self.service.get_plan_by_uid(uid)
+        if not plans:
+            raise HTTPException(404, "Plans not found")
+        return ServerResponse.ok(
+            message=f"Got all plans for uid: {uid}",
+            data={"plans": plans}
+        )
+
 
     def add_plan(self, plan: Plan) -> ServerResponse:
         added_plan = self.service.add_plan(plan)

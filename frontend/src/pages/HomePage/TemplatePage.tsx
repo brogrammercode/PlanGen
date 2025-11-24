@@ -14,6 +14,7 @@ import { API_ENDPOINTS, formatNumbers } from "../../utils";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../config";
 import { MOCK_TEMPLATE } from "./Templates";
+// import { MOCK_TEMPLATE } from "./Templates";
 
 // interface Category {
 //   id: string;
@@ -28,6 +29,7 @@ export interface Task {
   index: number;
   points: number;
   task: string;
+  status?: string;
   note: string;
   dateAssigned: Date;
   createdAt: Date;

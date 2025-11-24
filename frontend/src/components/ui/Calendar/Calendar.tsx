@@ -95,9 +95,9 @@ const Calendar = ({ events }: CalendarProps) => {
 
               {/* Events */}
               <div className="flex flex-col gap-1.5 mt-3 w-full">
-                {dayEvents.map((ev) => (
+                {dayEvents.map((ev, i) => (
                   <div
-                    key={ev.id}
+                    key={i}
                     className="py-1 px-2 text-xs rounded-md bg-blue-100 text-blue-700 truncate w-full"
                   >
                     {ev.title}

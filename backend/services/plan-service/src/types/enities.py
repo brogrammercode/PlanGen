@@ -18,6 +18,7 @@ class Task(BaseModel):
     index: int
     points: int
     task: str
+    status: str = "Not Started"
     note: Optional[str] = None
     dateAssigned: Optional[datetime] = None
     createdAt: Optional[datetime] = None
@@ -45,6 +46,7 @@ class Task(BaseModel):
             "index": self.index,
             "points": self.points,
             "task": self.task,
+            "status": self.status,
             "note": self.note,
             "dateAssigned": self.dateAssigned or datetime.utcnow(),
             "createdAt": self.createdAt or datetime.utcnow(),
