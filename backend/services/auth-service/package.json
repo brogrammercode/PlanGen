@@ -7,7 +7,7 @@
     "schema": "src/infrastructure/database/schema.prisma"
   },
   "scripts": {
-    "dev": "nodemon --exec \"ts-node -r tsconfig-paths/register src/index.ts\"",
+    "dev": "npx nodemon --exec \"ts-node -r tsconfig-paths/register src/index.ts\"",
     "build": "tsc && npx tsc-alias",
     "start": "node dist/src/index.js",
     "prisma:generate": "prisma generate --schema ./src/infrastructure/database/schema.prisma",
