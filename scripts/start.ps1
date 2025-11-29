@@ -14,6 +14,7 @@ function Start-Service{
 
 # Start-Service "plan-service" "cd backend/services/plan-service; .\venv\Scripts\python.exe -m uvicorn src.main:app --host 0.0.0.0 --port 3003 --reload"
 # Start-Service "template-service" "cd backend/services/template-service; .\venv\Scripts\python.exe -m uvicorn src.main:app --host 0.0.0.0 --port 3002 --reload"
+# Start-Service "redis-docker" "docker run --name my-redis -p 6379:6379 -d redis:7-alpine redis-server --appendonly yes --requirepass 'Harsh@3134'"
 Start-Service "auth-service" "cd backend/services/auth-service; npm run dev"
 # Start-Service "api-gateway" "cd backend/api-gateway; npm run dev"
 # Start-Service "frontend" "cd frontend; npm run dev"
