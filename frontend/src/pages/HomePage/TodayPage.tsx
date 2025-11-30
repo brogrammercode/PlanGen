@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import type { Task } from "./TemplatePage";
 import { axiosInstance } from "../../config";
 import { API_ENDPOINTS } from "../../utils";
+import axios from "axios";
 
 interface Plan {
   id: string;
@@ -21,11 +22,13 @@ const TodayPage = () => {
 
   const getTodayTasks = async () => {
     const user = localStorage.getItem("user");
-    const uid = JSON.parse(user || "{}").id;
+  const uid = JSON.parse(user || "{}").id;
+    try {
 
     const response = await axiosInstance.get(
       API_ENDPOINTS.PLANS.GET_BY_USER_ID(uid)
     );
+    
 
     const myPlans = response.data.data.plans;
     const today = new Date();
@@ -50,6 +53,14 @@ const TodayPage = () => {
 
     setTodayTasks(tasks);
     setAllTasks(allTask);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data
+        console.log(`Error getting plans for uid ${uid}: ${JSON.stringify(message)}`)
+      } else {
+        console.log(`Error getting plans: ${error}`)
+      }
+    }
   };
 
   useEffect(() => {
