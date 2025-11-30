@@ -2,8 +2,10 @@ import { ArrowRight, ChevronRight } from "lucide-react";
 import Button from "../../components/ui/Button/Button";
 import HoverToggleIcon from "../../components/ui/Button/HoverToggleIcon";
 import PrimaryButton from "../../components/ui/Button/PrimaryButton";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
+  const naviagte = useNavigate()
   return (
     <section className="max-w-[1800px] flex flex-col items-center">
       <div className="min-h-[600px] flex flex-col items-center justify-end p-4">

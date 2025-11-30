@@ -4,9 +4,11 @@ import Button from "../../ui/Button/Button";
 import HoverToggleIcon from "../../ui/Button/HoverToggleIcon";
 import PrimaryButton from "../../ui/Button/PrimaryButton";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(true);
+  const navigate = useNavigate()
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 0);
@@ -88,7 +90,16 @@ const Header = () => {
         </Button>
       </div>
       <div className="hidden lg:flex gap-5 justify-end items-center">
-        <Button>
+        <Button onClick={()=> {
+          const user = localStorage.getItem("user")
+          if (user != null) {
+            
+            navigate("/home")
+          } else {
+            
+            navigate("/login")
+          }
+          }}>
           {() => (
             <>
               <span>Log in</span>

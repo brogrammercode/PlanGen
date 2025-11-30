@@ -30,7 +30,7 @@ const TodayPage = () => {
     );
     
 
-    const myPlans = response.data.data.plans;
+    const myPlans = response.data.data.plans; 
     const today = new Date();
 
     const tasks: Task[] = [];
@@ -47,10 +47,10 @@ const TodayPage = () => {
 
         if (isSameDay) tasks.push(task);
         allTask.push(task);
-        console.log(task);
       })
     );
-
+    
+    console.log(allTask.length);
     setTodayTasks(tasks);
     setAllTasks(allTask);
     } catch (error) {
