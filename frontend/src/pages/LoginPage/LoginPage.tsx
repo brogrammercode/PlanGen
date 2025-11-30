@@ -7,15 +7,20 @@ import Field from "../../components/ui/Field/Field";
 import { loginSchema } from "../../utils/schemas";
 import { axiosInstance } from "../../config";
 import { API_ENDPOINTS } from "../../utils";
+import axios, { type AxiosResponse } from "axios";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [registerMode, setRegisterMode] = useState(false);
   const [validationError, setValidationError] = useState<{
     email?: string;
     password?: string;
   }>({});
+
+  const navigate = useNavigate();
+
 
   const validateForm = (): boolean => {
     try {
@@ -42,15 +47,23 @@ const LoginPage = () => {
     event: FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
-    const navigate = useNavigate();
 
     if (!validateForm()) return;
     setIsLoading(true);
     try {
-      const response = await axiosInstance.post(API_ENDPOINTS.AUTH.LOGIN, {
+      let response:AxiosResponse
+      if (registerMode) {
+        response = await axiosInstance.post(API_ENDPOINTS.AUTH.REGISTER, {
         email: email,
         password: password,
       });
+      } else {
+        response = await axiosInstance.post(API_ENDPOINTS.AUTH.LOGIN, {
+        email: email,
+        password: password,
+      });
+      }
+      // const response = await axiosInstance.get(API_ENDPOINTS.AUTH.HEALTH);
 
       const serverResponse = response.data;
 
@@ -74,8 +87,17 @@ const LoginPage = () => {
       }
       setIsLoading(false);
     } catch (error) {
-      // TODO: Handle login error
-      console.error("Login error:", error);
+      if (axios.isAxiosError(error)) {
+        const message  = error.response?.data.message; 
+        console.log(`Error message: ${JSON.stringify(message)}`)
+        if (message.includes("User not found")){
+          setRegisterMode(true)
+        }
+
+      } else {
+        // TODO: Handle login error
+        console.error("Login error:", error);
+      }
       setIsLoading(false);
     }
   }
@@ -134,7 +156,7 @@ const LoginPage = () => {
           </span>
         )}
         <PrimaryButton
-          label={"Continue"}
+          label={registerMode ? "New account ?  register instead" : "Continue"}
           className="w-80 mt-5"
           loading={isLoading}
         ></PrimaryButton>
